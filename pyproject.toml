@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "pyproject.toml"
+version = "0.1.0"
+description = ""
+authors = ["Ernest <ekedesh@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+SQLAlchemy = "^1.4.23"
+pydantic = "^1.8.2"
+celery = "^5.1.2"
+flake8 = "^3.9.2"
+pytest = "^6.2.5"
+black = "^21.8b0"
+uvicorn = "^0.15.0"
+requests = "^2.26.0"
+passlib = "^1.7.4"
+
+[tool.poetry.dev-dependencies]
+fastapi = "^0.68.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

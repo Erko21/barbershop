@@ -12,10 +12,16 @@ from app.config import settings as config
 from app.logger import log
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/sign_in")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
+async def get_user(db, username: str):
+    if username in db:
+        user_dict = db[username]
+        return UserCreate(**user_dict)
+
+
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
     return AuthService.validate_token(token)
 
 

@@ -1,10 +1,9 @@
-from services import AuthService
-from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
+from fastapi import HTTPException, Depends
 
 from app.serializers import User
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+from app.services import AuthService
+from app.schemas import oauth2_scheme
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
@@ -17,7 +16,11 @@ async def get_user(user: User = Depends(get_current_user)):
     return user
 
 
-async def get_super_user(super_user: User = Depends(get_user)):
-    if not super_user.role == "Admin":
+async def get_all_user(user: User):
+    pass
+
+
+async def get_superuser(superuser: User = Depends(get_user)):
+    if not superuser.role == "Admin":
         raise HTTPException(status_code=400, detail="You are not superuser")
-    return super_user
+    return superuser

@@ -9,17 +9,15 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
     ports:
-      - 127.0.0.1:${LOCAL_DB_PORT}:5432
+      - 127.0.0.1:5557:5432
     restart: always
 
   app:
     build: .
-    restart: always
+    # restart: always
     command: bash ./start_server.sh
-    volumes:
-      - .:/app
     ports:
-      - 127.0.0.1:8090:80
+      - 127.0.0.1:${SERVER_PORT}:8089
     depends_on:
       - db
 

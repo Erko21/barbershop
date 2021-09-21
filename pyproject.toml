@@ -1,24 +1,35 @@
 [tool.poetry]
-name = "pyproject.toml"
+name = "learning_project"
 version = "0.1.0"
 description = ""
 authors = ["Ernest <ekedesh@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-SQLAlchemy = "^1.4.23"
-pydantic = "^1.8.2"
-celery = "^5.1.2"
-flake8 = "^3.9.2"
-pytest = "^6.2.5"
-black = "^21.8b0"
+fastapi = "^0.68.1"
 uvicorn = "^0.15.0"
 requests = "^2.26.0"
+fastapi-pagination = "^0.8.3"
+python-jose = "^3.3.0"
 passlib = "^1.7.4"
+pydantic = {extras = ["email"], version = "^1.8.2"}
+python-dotenv = "^0.19.0"
+celery = "^5.1.2"
+aerich = "^0.5.8"
+tortoise-orm = "^0.17.7"
+tortoise = "^0.1.1"
+python-multipart = "^0.0.5"
+asyncpg = "^0.24.0"
 
 [tool.poetry.dev-dependencies]
-fastapi = "^0.68.1"
+flake8 = "^3.9.2"
+black = "^21.9b0"
+pytest = "^6.2.5"
+asynctest = "^0.13.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "main:app"

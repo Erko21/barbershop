@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     ENV: str = "production"
 
     JWT_SECRET: str
-    JWT_ALGORITHM: str = "HS256"
-    JWT_EXP: str = "3600"
+    JWT_ALGORITHM: str
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: str = 43200
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
@@ -45,7 +45,7 @@ class Settings(BaseSettings):
             if values["ENV"] == "develop"
             else values["POSTGRES_PORT"]
         )
-        return PostgresDsn.build(
+        uri = PostgresDsn.build(
             scheme="postgres",
             user=values["POSTGRES_USER"],
             password=values["POSTGRES_PASSWORD"],
@@ -53,6 +53,8 @@ class Settings(BaseSettings):
             port=db_port,
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
+        print("!!!!!!!!!!!!!!!!!!", uri)
+        return uri
 
     class Config:
         case_sensitive = True

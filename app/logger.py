@@ -1,7 +1,8 @@
-import logging
 import sys
+import logging
 
-LOGGER_NAME = "ClipWeb"
+
+LOGGER_NAME = "BarbWeb"
 
 
 class Logger(object):

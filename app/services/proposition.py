@@ -22,13 +22,13 @@ class PropositionService(BaseService):
         self, proposition_data: PropositionCreation
     ) -> PropositionModel:
         proposition = await PropositionModel.create(
-            proposition_name=proposition_data.proposition_name,
+            name=proposition_data.name,
             price=proposition_data.price,
             job_time=proposition_data.job_time,
         )
         log(
             log.INFO,
             "Proposition %s has been created",
-            proposition_data.proposition_name,
+            proposition_data.name,
         ),
         return proposition

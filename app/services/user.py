@@ -4,7 +4,7 @@ from tortoise.query_utils import Q
 from fastapi import HTTPException, status
 
 from app.services import BaseService, AuthService
-from app.models import User as UserDB
+from app.models import User as UserModel
 from app.serializers import (
     UserRegistration,
 )
@@ -13,7 +13,7 @@ from app.serializers import User, Token, UserInDb
 
 
 class UserService(BaseService):
-    model = UserDB
+    model = UserModel
     create_schema = UserRegistration
     update_schema = UserInDb
     get_schema = User_Get_Pydantic
@@ -33,7 +33,7 @@ class UserService(BaseService):
         )
 
     async def register_new_user(self, user_data: UserRegistration) -> User:
-        user = await UserDB.create(
+        user = await UserModel.create(
             username=user_data.username,
             email=user_data.email,
             full_name=user_data.full_name,

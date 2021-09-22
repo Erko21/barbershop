@@ -6,21 +6,6 @@ from tests.utils.user import create_test_user
 
 
 def test_user_auth(client: TestClient, event_loop: asyncio.AbstractEventLoop):
-    #     test_user = event_loop.run_until_complete(
-    #         create_test_user(
-    #             username="Ernest",
-    #             email="ekedesh@gmail.com",
-    #             full_name="Ernest Kedesh",
-    #             role="Admin",
-    #             is_superuser=True,
-    #             password="password",
-    #             is_active=True,
-    #         )
-    #     )
-    # response = client.post("api/registration", json=data_steward_credentials)
-    # assert response
-    # assert response.status_code == 200
-
     """Test registration of user"""
     test_auth = client.post(
         "/auth/register",

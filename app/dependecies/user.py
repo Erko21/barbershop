@@ -16,10 +16,6 @@ async def get_user(user: User = Depends(get_current_user)):
     return user
 
 
-async def get_all_user(user: User):
-    pass
-
-
 async def get_superuser(superuser: User = Depends(get_user)):
     if not superuser.role == "Admin":
         raise HTTPException(status_code=400, detail="You are not superuser")

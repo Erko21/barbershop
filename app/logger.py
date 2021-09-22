@@ -2,7 +2,7 @@ import sys
 import logging
 
 
-LOGGER_NAME = "BarbWeb"
+LOGGER_NAME = "BarberWeb"
 
 
 class Logger(object):

@@ -1,3 +1,4 @@
+from app.logger import log
 from typing import Any, Dict, List, Optional, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
@@ -53,7 +54,7 @@ class Settings(BaseSettings):
             port=db_port,
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
-        print("!!!!!!!!!!!!!!!!!!", uri)
+        log(log.INFO("!!!!!!!!!!!!!!!!!!", uri))
         return uri
 
     class Config:

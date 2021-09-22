@@ -1,11 +1,9 @@
 from typing import Optional
 from pydantic import BaseModel
-from pydantic.errors import cls_kwargs
 from pydantic.networks import EmailStr
 from tortoise.contrib.pydantic import pydantic_model_creator
 
-from app.models.user import Role
-from app.models import User
+from app.models import User, Role
 
 
 User_Get_Pydantic = pydantic_model_creator(
@@ -51,7 +49,7 @@ class UserRegistration(BaseModel):
     username: str
     email: EmailStr
     full_name: str
-    role: str = Role.CUSTOMER
+    role: str = Role.BARBER
     password: str
 
 
@@ -59,7 +57,7 @@ class UserInDb(BaseModel):
     username: Optional[str] = None
     email: Optional[EmailStr] = None
     full_name: Optional[str] = None
-    role: str = Role.CUSTOMER
+    role: str = Role.BARBER
     password: Optional[str] = None
     is_active: Optional[bool] = False
     is_superuser: Optional[bool] = False

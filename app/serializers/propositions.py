@@ -11,23 +11,25 @@ User_Get_Pydantic = pydantic_model_creator(
 
 
 class BaseProposition(BaseModel):
-    proposition_name: str
+    name: str
 
 
 class PropositionOut(BaseProposition):
+    id: int
     price: Decimal
     job_time: Decimal
 
 
 class PropositionCreation(BaseModel):
-    proposition_name: str
+    name: str
     job_time: Decimal
     price: Decimal
 
 
-class PropositionCreatedMsg(BaseModel):
-    status: str = "OK"
-    detail: str = "Proposition has been created successfully"
+class PropositionCreated(BaseModel):
+    id: int
+    price: Decimal
+    job_time: Decimal
 
 
 class PropositionDeletedMsg(BaseModel):
@@ -38,9 +40,10 @@ class PropositionDeletedMsg(BaseModel):
 class PropositionUpdatedMsg(BaseModel):
     status: str = "OK"
     detail: str = "Proposition has been updated successfully"
+    price: Decimal
 
 
 class PropositionToUpdate(BaseModel):
-    proposition_name: Optional[str]
+    name: Optional[str]
     job_time: Optional[Decimal]
     price: Optional[Decimal]

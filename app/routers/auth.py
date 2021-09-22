@@ -24,12 +24,12 @@ async def sign_in(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @router.get("/user", response_model=User)
-def get_user(user: User = Depends(get_user)):
+async def get_user(user: User = Depends(get_user)):
     return user
 
 
 @router.get("/all", response_model=List[User])
-def get_all_user(user: User = Depends(get_user)):
+async def get_all_user(user: User = Depends(get_user)):
     user_service = UserService()
     return user_service.get_all()
 

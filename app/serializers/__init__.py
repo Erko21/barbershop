@@ -13,7 +13,7 @@ from .auth import (
 from .propositions import (
     BaseProposition,
     User_Get_Pydantic,
-    PropositionCreatedMsg,
+    PropositionCreated,
     PropositionCreation,
     PropositionToUpdate,
     PropositionOut,

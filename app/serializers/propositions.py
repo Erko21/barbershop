@@ -5,7 +5,7 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 
 from app.models import Proposition
 
-User_Get_Pydantic = pydantic_model_creator(
+Proposition_Get_Pydantic = pydantic_model_creator(
     Proposition,
 )
 
@@ -32,11 +32,6 @@ class PropositionCreated(BaseModel):
     job_time: Decimal
 
 
-class PropositionDeletedMsg(BaseModel):
-    status: str = "OK"
-    detail: str = "Proposition has been deleted successfully"
-
-
 class PropositionUpdatedMsg(BaseModel):
     status: str = "OK"
     detail: str = "Proposition has been updated successfully"
@@ -47,3 +42,10 @@ class PropositionToUpdate(BaseModel):
     name: Optional[str]
     job_time: Optional[Decimal]
     price: Optional[Decimal]
+
+
+class PropositionInfo(BaseModel):
+    id: int
+    name: str
+    job_time: Decimal
+    price: Decimal

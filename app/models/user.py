@@ -5,7 +5,7 @@ from enum import Enum
 
 
 class Role(str, Enum):
-    ADMiN = "Admin"
+    ADMIN = "Admin"
     BARBER = "Barber"
 
 

@@ -38,6 +38,7 @@ class Token(BaseModel):
 class UserCreatedMsg(BaseModel):
     status: str = "OK"
     detail: str = "User has been created successfully"
+    id: int
 
 
 class UserLogoutMsg(BaseModel):
@@ -64,3 +65,10 @@ class UserInDb(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UserInfo(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+    full_name: str

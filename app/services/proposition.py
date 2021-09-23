@@ -1,14 +1,10 @@
-from typing import Optional
-from tortoise.query_utils import Q
-from fastapi import HTTPException, status
-
-from app.services import BaseService, AuthService
+from app.services.base import BaseService
 from app.models import Proposition as PropositionModel
 from app.logger import log
 from app.serializers.propositions import (
     PropositionCreation,
     PropositionToUpdate,
-    User_Get_Pydantic,
+    Proposition_Get_Pydantic,
 )
 
 
@@ -16,7 +12,7 @@ class PropositionService(BaseService):
     model = PropositionModel
     create_schema = PropositionCreation
     update_schema = PropositionToUpdate
-    get_schema = User_Get_Pydantic
+    get_schema = Proposition_Get_Pydantic
 
     async def create_proposition(
         self, proposition_data: PropositionCreation

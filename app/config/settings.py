@@ -54,7 +54,7 @@ class Settings(BaseSettings):
             port=db_port,
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
-        log(log.INFO("!!!!!!!!!!!!!!!!!!", uri))
+        log(log.INFO("DATABASE_URI", uri))
         return uri
 
     class Config:

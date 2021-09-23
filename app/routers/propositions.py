@@ -7,28 +7,25 @@ from app.serializers import PropositionOut
 from app.serializers.propositions import (
     PropositionCreated,
     PropositionCreation,
-    PropositionDeletedMsg,
     PropositionToUpdate,
     PropositionUpdatedMsg,
 )
 from app.services.proposition import PropositionService
 from app.models.user import User
 
-router = APIRouter(prefix="/proposition")
+router = APIRouter(prefix="/proposition", tags=["Proposition"])
 
 
 @router.post("/create", response_model=PropositionCreated)
 async def create_proposition(
-    # proposition: PropositionCreation, user: User = Depends(get_user)
-    proposition: PropositionCreation,
+    proposition: PropositionCreation, user: User = Depends(get_user)
 ):
     service = PropositionService()
     return await service.create_proposition(proposition)
 
 
 @router.post("/delete", status_code=204)
-# async def delete_proposition(pk: int, user: User = Depends(get_user)):
-async def delete_proposition(pk: int):
+async def delete_proposition(pk: int, user: User = Depends(get_user)):
     service = PropositionService()
     return await service.delete(id=pk)
 

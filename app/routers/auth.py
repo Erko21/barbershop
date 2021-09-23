@@ -7,7 +7,7 @@ from app.serializers import User, Token
 from app.dependecies import get_superuser, get_current_user, get_user
 from app.serializers.auth import UserCreatedMsg, UserRegistration, UserLogoutMsg
 
-router = APIRouter(prefix="/auth")
+router = APIRouter(prefix="/auth", tags=["Authentification"])
 
 
 @router.post("/register", response_model=UserCreatedMsg)
@@ -24,8 +24,9 @@ async def sign_in(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @router.get("/user", response_model=User)
-async def get_user(user: User = Depends(get_user)):
-    return user
+async def get_user(pk: int, user: User = Depends(get_user)):
+    service = UserService()
+    return await service.get(id=pk)
 
 
 @router.get("/all", response_model=List[User])

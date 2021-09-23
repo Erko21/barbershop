@@ -9,6 +9,8 @@ from app.models.user import User
 class Record(Model):
     id = fields.IntField(pk=True)
     customer_email = fields.CharField(null=False, max_length=128)
+    customer_full_name = fields.CharField(null=False, max_length=128)
+    customer_phone_number = fields.CharField(null=True, max_length=13)
     proposition: fields.ForeignKeyRelation[Proposition] = fields.ForeignKeyField(
         "models.Proposition",
         related_name="records",

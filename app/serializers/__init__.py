@@ -8,15 +8,26 @@ from .auth import (
     UserLogoutMsg,
     UserRegistration,
     UserInDb,
+    UserInfo,
 )
 
 from .propositions import (
     BaseProposition,
-    User_Get_Pydantic,
-    PropositionCreatedMsg,
+    Proposition_Get_Pydantic,
+    PropositionCreated,
     PropositionCreation,
     PropositionToUpdate,
     PropositionOut,
-    PropositionDeletedMsg,
     PropositionUpdatedMsg,
+    PropositionInfo,
+)
+
+from .records import (
+    BaseRecord,
+    Record_Get_Pydantic,
+    RecordCreated,
+    RecordCreation,
+    RecordOut,
+    RecordToUpdate,
+    RecordUpdatedMsg,
 )

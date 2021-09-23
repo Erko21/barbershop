@@ -7,6 +7,7 @@ from .auth import (
     UserCredentials,
     UserLogoutMsg,
     UserRegistration,
+    User_Get_Pydantic,
     UserInDb,
     UserInfo,
 )

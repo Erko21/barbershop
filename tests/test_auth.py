@@ -16,13 +16,13 @@ def test_user_auth(client: TestClient, event_loop: asyncio.AbstractEventLoop):
             "role": "Barber",
             "password": "password",
         },
-        # headers={"Authorization": f"Bearer {token}"},
     )
     assert test_auth
     assert test_auth.status_code == 200, test_auth
     data = test_auth.json()
     assert data["status"] == "OK"
     assert data["detail"] == "User has been created successfully"
+    test_user_id = data["id"]
 
     """Test registration of user with incorect type of credatnials"""
     test_auth_incorrect_type = client.post(
@@ -34,7 +34,6 @@ def test_user_auth(client: TestClient, event_loop: asyncio.AbstractEventLoop):
             "role": "Barber",
             "password": "password",
         },
-        # headers={"Authorization": f"Bearer {token}"},
     )
     assert not test_auth_incorrect_type
     assert test_auth_incorrect_type.status_code == 422, test_auth_incorrect_type
@@ -64,7 +63,7 @@ def test_user_auth(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     # """Test get one user"""
     # test_get_user = client.get(
-    #     "/api/auth/user", headers={"Authorization": f"Bearer {token}"}
+    #     f"/auth/user?pk={test_user_id}", headers={"Authorization": f"Bearer {token}"}
     # )
     # assert test_get_user
     # assert test_get_user.status_code == 200, test_get_user
@@ -73,7 +72,7 @@ def test_user_auth(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     # """Test logout endpoint"""
     # logout = client.post(
-    #     "/api/auth/logout",
+    #     "/auth/logout",
     #     headers={"Authorization": f"Bearer {token}"},
     # )
     # assert logout

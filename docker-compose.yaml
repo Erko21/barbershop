@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+    ports:
+      - 127.0.0.1:5557:5432
+    restart: always
+
+  app:
+    build: .
+    # restart: always
+    command: bash ./start_server.sh
+    ports:
+      - 127.0.0.1:${SERVER_PORT}:8089
+    depends_on:
+      - db
+
+volumes:
+  db_data:

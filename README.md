@@ -15,6 +15,11 @@
 ## Project run:
 
 ## Project setup:
+    To create migrations execute:
+    ```bash
+    aerich init -t app.database.TORTOISE_ORM
+    aerich init-db
+    ```
 
 ## Description:
     In this Api we will have 3 types of users:
@@ -34,3 +39,4 @@
 
 #### Customer:
     Customer dont need to be register, can make a record
+

@@ -29,6 +29,6 @@ class RecordService(BaseService):
         log(
             log.INFO,
             "Proposition %s has been created",
-            record_data.id,
+            record.id,
         ),
         return record

@@ -1,4 +1,5 @@
-from app.services import proposition
+from tortoise import Tortoise
+from tortoise.contrib.pydantic.base import PydanticModel
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
@@ -6,7 +7,9 @@ from pydantic.networks import EmailStr
 from tortoise.contrib.pydantic import pydantic_model_creator
 
 from app.models import Record
-from app.serializers import UserInfo, PropositionInfo
+
+
+Tortoise.init_models(["app.models"], "models")
 
 Record_Get_Pydantic = pydantic_model_creator(
     Record,
@@ -17,13 +20,14 @@ class BaseRecord(BaseModel):
     id: int
 
 
-class RecordOut(BaseRecord):
+class RecordOut(PydanticModel):
+    id: int
     customer_email: EmailStr
     customer_phone_number: str
     customer_full_name: str
     time: datetime
-    user_id: UserInfo
-    proposition_id: PropositionInfo
+    user_id: int
+    proposition_id: int
 
 
 class RecordCreation(BaseModel):

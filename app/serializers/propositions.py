@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import Optional
 from pydantic import BaseModel
 from tortoise.contrib.pydantic import pydantic_model_creator
+from tortoise.contrib.pydantic.base import PydanticModel
 
 from app.models import Proposition
 
@@ -44,7 +45,7 @@ class PropositionToUpdate(BaseModel):
     price: Optional[Decimal]
 
 
-class PropositionInfo(BaseModel):
+class PropositionInfo(PydanticModel):
     id: int
     name: str
     job_time: Decimal

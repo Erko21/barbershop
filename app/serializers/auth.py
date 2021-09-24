@@ -2,6 +2,8 @@ from typing import Optional
 from pydantic import BaseModel
 from pydantic.networks import EmailStr
 from tortoise.contrib.pydantic import pydantic_model_creator
+from tortoise.contrib.pydantic.base import PydanticModel
+from tortoise.contrib.pydantic.creator import PydanticMeta
 
 from app.models import User, Role
 
@@ -67,7 +69,7 @@ class UserInDb(BaseModel):
         orm_mode = True
 
 
-class UserInfo(BaseModel):
+class UserInfo(PydanticModel):
     id: int
     username: str
     email: EmailStr

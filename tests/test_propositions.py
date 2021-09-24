@@ -42,7 +42,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test creation of proposition"""
     proposition_created_response = client.post(
-        "/proposition/create",
+        "/propositions/create",
         json={"name": "Hair cut", "price": 300.00, "job_time": 1.5},
         headers={"Authorization": f"Bearer {token}"},
     )
@@ -56,7 +56,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test get all propositions"""
     get_all_propositions = client.get(
-        "/proposition/get_all",
+        "/propositions/get_all",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert get_all_propositions
@@ -66,7 +66,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test get one proposition"""
     get_one_proposition = client.get(
-        f"/proposition/{first_proposition_id}",
+        f"/propositions/{first_proposition_id}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert get_one_proposition
@@ -77,7 +77,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test proposition filtered by price"""
     proposition_by_price = client.get(
-        f"/proposition/by_price?price={first_proposition_price}",
+        f"/propositions/by_price?price={first_proposition_price}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert proposition_by_price
@@ -88,7 +88,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test proposition filtered by time"""
     proposition__by_time = client.get(
-        f"/proposition/by_time?time={first_proposition_job_time}",
+        f"/propositions/by_time?time={first_proposition_job_time}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert proposition__by_time
@@ -99,7 +99,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test propositiom update"""
     proposition_update = client.post(
-        f"/proposition/update?pk={first_proposition_id}",
+        f"/propositions/update?pk={first_proposition_id}",
         json={"price": 400.00},
         headers={"Authorization": f"Bearer {token}"},
     )
@@ -112,7 +112,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test proposition delete"""
     proposition_delete = client.post(
-        f"/proposition/delete?pk={first_proposition_id}",
+        f"/propositions/delete?pk={first_proposition_id}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert proposition_delete

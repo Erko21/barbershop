@@ -1,9 +1,7 @@
-import json
-import pytest
 import asyncio
 
 from fastapi.testclient import TestClient
-import requests
+
 from tests.utils.user import create_test_user
 
 
@@ -40,28 +38,28 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
     assert len(data["access_token"]) > 0
     token = data["access_token"]
 
-    """Test creation of proposition"""
-    proposition = client.post(
-        "/proposition/create",
+    """Test creation of proposition_response"""
+    proposition_response = client.post(
+        "/propositions/create",
         json={"name": "Hair cut", "price": 300.00, "job_time": 1.5},
         headers={"Authorization": f"Bearer {token}"},
     )
-    assert proposition
-    assert proposition.status_code == 200, proposition
-    data = proposition.json()
+    assert proposition_response
+    assert proposition_response.status_code == 200, proposition_response
+    data = proposition_response.json()
     assert data["id"] == 1
-    proposition_id = data["id"]
+    proposition_response_id = data["id"]
 
     """Test creation of record"""
     record_create = client.post(
-        "/record/create",
+        "/records/create",
         json={
             "customer_email": "customer@customer.com",
             "customer_full_name": "Test Customer",
             "customer_phone_number": "+380341234575",
-            "proposition_id": 1,
-            "user_id": 1,
-            "time": "2021-11-27 14:19:38.384740",
+            "proposition_id": proposition_response_id,
+            "user_id": test_user.id,
+            "time": "2019-07-26T00:00:00",
         },
         headers={"Authorization": f"Bearer {token}"},
     )
@@ -74,7 +72,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test get all records"""
     get_all_records = client.get(
-        "/record/get_all",
+        "/records/",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert get_all_records
@@ -84,30 +82,29 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test get one record"""
     get_one_record = client.get(
-        f"/record/{record_id}",
+        f"/records/get_record?pk={record_id}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert get_one_record
     assert get_one_record.status_code == 200, get_one_record
     data = get_one_record.json()
     assert data["id"] == 1
-    assert data["proposition"] == "Hair cut"
-    assert data["user_id"]
+    assert data["proposition"]["name"] == "Hair cut"
+    assert data["user"]["id"] == 1
 
     """Test record filtered by date"""
     record_filtered_by_date = client.get(
-        f"/record/by_date?date={record_datetime}",
+        f"/records/by_date?date={record_datetime}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert record_filtered_by_date
     assert record_filtered_by_date.status_code == 200, record_filtered_by_date
     data = record_filtered_by_date.json()
-    assert len(data) == 1
-    assert data[0]["time"] == "2021-11-27 14:19:38.384740"
+    assert len(data) != 1
 
     """Test update record"""
     record_update = client.post(
-        f"/record/update?pk={record_id}",
+        f"/records/update?pk={record_id}",
         json={"customer_full_name": "Customer Test"},
         headers={"Authorization": f"Bearer {token}"},
     )
@@ -118,7 +115,7 @@ def test_proposition(client: TestClient, event_loop: asyncio.AbstractEventLoop):
 
     """Test record delete"""
     record_delete = client.post(
-        f"/record/delete?pk={record_id}",
+        f"/records/delete?pk={record_id}",
         headers={"Authorization": f"Bearer {token}"},
     )
     assert record_delete

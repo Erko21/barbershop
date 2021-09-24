@@ -13,7 +13,7 @@ from app.serializers.propositions import (
 from app.services.proposition import PropositionService
 from app.models.user import User
 
-router = APIRouter(prefix="/proposition", tags=["Proposition"])
+router = APIRouter(prefix="/propositions", tags=["Proposition"])
 
 
 @router.post("/create", response_model=PropositionCreated)

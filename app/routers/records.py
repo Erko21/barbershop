@@ -18,18 +18,18 @@ from app.serializers.records import (
 )
 
 
-router = APIRouter(prefix="/record", tags=["Record"])
+router = APIRouter(prefix="/records", tags=["Record"])
 
 
 @router.post("/create", response_model=RecordOut)
 async def record_create(record: RecordCreation):
-    service = RecordService
+    service = RecordService()
     return await service.create_record(record)
 
 
 @router.post("/delete", status_code=204)
 async def delete_record(pk: int, user: User = Depends(get_user)):
-    service = RecordService
+    service = RecordService()
     return await service.delete(id=pk)
 
 
@@ -37,23 +37,24 @@ async def delete_record(pk: int, user: User = Depends(get_user)):
 async def update_record(
     pk: int, schema: RecordToUpdate, user: User = Depends(get_user)
 ):
-    service = RecordService
+    service = RecordService()
     return await service.update(schema, id=pk)
 
 
-@router.get("/all", response_model=List[RecordOut])
+# @router.get("/", response_model=List[RecordOut])
+@router.get("/", response_model=List[Record_Get_Pydantic])
 async def get_records():
-    service = RecordService
+    service = RecordService()
     return await service.get_all()
 
 
-@router.get("/get_record", response_model=RecordOut)
+@router.get("/get_record", response_model=Record_Get_Pydantic)
 async def get_record(pk: int, user: User = Depends(get_user)):
-    service = RecordService
+    service = RecordService()
     return await service.get(id=pk)
 
 
-@router.get("/by_date", response_model=List[RecordOut])
-async def record_filtered_by_price(date: datetime, user: User = Depends(get_user)):
-    service = RecordService
+@router.get("/by_date", response_model=List[Record_Get_Pydantic])
+async def record_filtered_by_price(date: str, user: User = Depends(get_user)):
+    service = RecordService()
     return await service.filter(time=date)
